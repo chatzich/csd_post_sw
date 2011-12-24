@@ -1,0 +1,16 @@
+<!doctype>
+<html>
+<head>
+</head>
+<body>
+
+<form name="form" method="post" action="http://localhost:8000/test2.ssm">
+<p>
+email	: <input type="text" name="email">
+name	: <input type="text" name="name">
+<input type="submit" value="CLICK">
+</p>
+</form>
+
+</body>
+</html>

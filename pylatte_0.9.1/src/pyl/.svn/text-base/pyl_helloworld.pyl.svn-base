@@ -1,0 +1,4 @@
+<$
+hi="hello world! pylatte"
+$>
+<h1><$=hi$></h1>

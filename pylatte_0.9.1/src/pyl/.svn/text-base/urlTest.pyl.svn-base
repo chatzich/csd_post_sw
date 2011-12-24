@@ -1,0 +1,59 @@
+<@latteDatabaseExt>
+
+<$
+session["member"]="안녕~~"
+session["member2"]="ㅋㅋㅋ"
+
+a = DBMappingParser.pyLatteDBMappingParser()
+p = {"age":100, "name":"Hwanseong"}
+r = a.queryForList("user.select2")
+
+$>
+
+<link type="text/css" href="/htdoc/css/test.css" rel="stylesheet"/>
+<div>
+check DB, yo! DB is below!
+</div>
+<div id="dbdiv">
+<$=r$>
+<br>
+</div>
+
+
+<$
+print(param)
+print(param["method"])
+
+print("User-Agent ="+headerInfo["User-Agent"])
+
+print("Hello world")
+$>
+<div>
+method=<$=param["method"]$>
+<div>
+<$=headerInfo["User-Agent"]$>
+<$
+a = "Good bye!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+b = 12345
+c = "hi there"
+$>
+<$
+d = 1
+e = 3.1415
+$>
+
+<h1>안녕하세요</h1>
+
+<$
+tmp = ["a","b","c"]
+$>
+	
+	Hi there!
+
+<$
+temp = [1,2,3]
+for t in temp:
+	print(t)
+$>
+
+	<$=d$> 세상이 <$=e$> 어두워지고 <$=a$> 조용히 비가 <$=c$> 내리면 여전히 그대를 <$=b$> 생각하네...

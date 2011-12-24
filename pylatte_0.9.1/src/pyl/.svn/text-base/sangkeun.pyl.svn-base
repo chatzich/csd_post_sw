@@ -1,0 +1,7 @@
+<$
+
+$>
+
+<div>THIS IS TEST</div>
+<div>Email: <$=param["email"]$></div>
+<div>name: <$=param["name"]$></div>
