@@ -1,6 +1,0 @@
-<h1>filter Test</h1>
-
-<$
-test="hello filter Test"
-$>
-<$=test $>

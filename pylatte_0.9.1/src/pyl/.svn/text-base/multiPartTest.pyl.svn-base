@@ -1,5 +1,0 @@
-<$
-pyformFile=formFile.formFile(pyFile)
-pyformFile.moveUploadFile("file1","topy","1.png")
-$>
-<h1>Test</h1>
