@@ -311,9 +311,14 @@ def upload_form():
 	string += '	<form action="/ruleml" method="post" enctype="multipart/form-data">'
 	string += 'Choose a file to upload:'
 	string += '		<input type="file" name="data"/>'
-	string += '		<input type="submit" name="submit" value="Upload File"/>'
+	string += '		<input type="submit" name="submit" value="Submit"/>'
 	string += '	</form>'
 
+	string += '	<form action="/ruleml2" method="post" enctype="multipart/form-data">'
+	string += 'Write ruleML rules here:'
+	string += '		<input type="submit" name="submit" value="Submit"/>'
+	string += '		<textarea name="thetext" rows="20" cols="80"/>'
+	string += '	</form>'
 	string += '</body>'
 	string += '</html>'
 	return string 
@@ -331,5 +336,21 @@ def do_upload():
 	#	raw = data.file.read() # This is dangerous for big files
 	#	filename = data.filename
 	return static_file('graph.png', root='.')
+
+@route('/ruleml2', method='POST')
+def do_upload2():
+	submit = request.forms.submit
+	data = request.forms.thetext
+
+	p = Parser()
+	#raw = data.file.read()
+	p.set_data(data)
+	p.parse()
+	#if data and data.file:
+	#	raw = data.file.read() # This is dangerous for big files
+	#	filename = data.filename
+	return static_file('graph.png', root='.')
+
+
 
 run(host='localhost', port=8080)
