@@ -44,6 +44,12 @@ class Atom:
         
     def setRuleId(self, id):
         self.m_ruleId = id
+
+    def getRule(self):
+	return self.m_rule
+
+    def setRule(self, rule):
+        self.m_rule = rule
         
     def ruleId(self):
         return self.m_ruleId
@@ -69,12 +75,23 @@ class Atom:
             return True
 
         return False
+
+    def hasSameNumVars(self, other):
+        vars = other.m_vars
+	if(len(vars) == len(self.m_vars)):
+	    return True
+
+	return False
     
     def isSame(self, other):
         if(self.hasSameInds(other) and
         self.hasSameVars(other) and
         other.m_rel.isSame(self.m_rel)):
             return True
+	elif(self.hasSameInds(other) and 
+	other.m_rel.isSame(self.m_rel) and
+	self.hasSameNumVars(other)):
+	    return True
         
         return False
     
@@ -110,15 +127,22 @@ class Head:
     def setRuleId(self, id):
         self.m_ruleId = id
         
+    def setRule(self, rule):
+        self.m_rule = rule
+
     def ruleId(self):
         return self.m_ruleId
     
+    def numAtoms(self):
+	return len(self.m_atoms)
+
     def parse(self):
         self.m_dom = parseString(self.m_data)
         atoms = self.m_dom.getElementsByTagName('Atom')
         
         for at in atoms:
             atom = Atom(at.toxml())
+	    atom.setRule(self.m_rule);
             atom.setRuleId(self.m_ruleId)
             atom.parse()
             self.m_atoms.add(atom)
@@ -130,6 +154,9 @@ class Body:
 
     def setRuleId(self, id):
         self.m_ruleId = id
+
+    def setRule(self, rule):
+	self.m_rule = rule
         
     def ruleId(self):
         return self.m_ruleId
@@ -140,6 +167,7 @@ class Body:
         
         for at in atoms:
             atom = Atom(at.toxml())
+	    atom.setRule(self.m_rule);
             atom.setRuleId(self.m_ruleId)
             atom.parse()
             self.m_atoms.add(atom)
@@ -151,6 +179,9 @@ class Rule:
     def setId(self, id):
         self.m_id = id
         
+    def numHeadAtoms(self):
+	return self.m_head.numAtoms() 
+
     def id(self):
         return self.m_id
     
@@ -159,10 +190,12 @@ class Rule:
         self.m_dom = parseString(self.m_data)
         head = self.m_dom.getElementsByTagName('if')[0].toxml()
         self.m_head = Head(head);
+	self.m_head.setRule(self)
         self.m_head.setRuleId(self.m_id)
         self.m_head.parse()
         body = self.m_dom.getElementsByTagName('then')[0].toxml()
         self.m_body = Body(body)
+	self.m_body.setRule(self)
         self.m_body.setRuleId(self.m_id)
         self.m_body.parse()
 
@@ -201,14 +234,21 @@ class Rule_Library:
         for ath in self.m_headAtoms:
             for atb in self.m_bodyAtoms:
                 if(ath.isSame(atb) == True and ath.ruleId() != atb.ruleId()):
+		
                     edge = Graph_Edge(ath.ruleId(), atb.ruleId())
                     self.m_edges.add(edge)
                     node_a = pydot.Node("%d" % atb.ruleId(), style="filled", fillcolor="red")
                     node_b = pydot.Node("%d" % ath.ruleId(), style="filled", fillcolor="red")
                     graph.add_node(node_a)
                     graph.add_node(node_b)
-                    ed = pydot.Edge(node_a , node_b)
-                    graph.add_edge(ed)
+		    dot = pydot.Dot(graph)
+		    rule = ath.getRule();
+		    if(rule.numHeadAtoms() > 1):
+			ed = pydot.Edge(node_a , node_b, arrowhead='open')
+		    else:
+			ed = pydot.Edge(node_a , node_b, arrowhead='halfopen')
+		    graph.add_edge(ed)
+		    
                     #print "I found an edge!!!"
                         
         graph.write_png('graph.png')
