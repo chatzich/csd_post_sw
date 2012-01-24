@@ -9,6 +9,9 @@ from sets import Set
 class Variable:
     def __init__(self):
         self.m_data = ""
+
+    def getData(self):
+	return self.m_data
     
     def isSame(self, other):
         
@@ -20,6 +23,9 @@ class Relation:
     def __init__(self):
         self.m_data = ""
     
+    def getData(self):
+	return self.m_data
+
     def isSame(self, other):
         if(self.m_data == other.m_data):
             return True
@@ -29,6 +35,9 @@ class Individual:
     def __init__(self):
         self.m_data = ""
     
+    def getData(self):
+	return self.m_data
+
     def isSame(self, other):
         if(self.m_data == other.m_data):
             return True
@@ -42,6 +51,18 @@ class Atom:
         self.m_rel = Relation()
         self.m_data = data
         
+    def getVars(self):
+	return self.m_vars
+
+    def getInds(self):
+	return self.m_inds
+
+    def getInds(self):
+	return self.m_inds
+
+    def getRel(self):
+	return self.m_rel
+
     def setRuleId(self, id):
         self.m_ruleId = id
 
@@ -243,16 +264,37 @@ class Rule_Library:
                     graph.add_node(node_b)
 		    dot = pydot.Dot(graph)
 		    rule = ath.getRule();
+		    lab = ""
+		    lab = self.make_label(ath)
 		    if(rule.numHeadAtoms() > 1):
-			ed = pydot.Edge(node_a , node_b, arrowhead='open')
+			ed = pydot.Edge(node_a , node_b, arrowhead='open', label = lab)
 		    else:
-			ed = pydot.Edge(node_a , node_b, arrowhead='halfopen')
+			ed = pydot.Edge(node_a , node_b, arrowhead='halfopen', label = lab)
 		    graph.add_edge(ed)
 		    
                     #print "I found an edge!!!"
                         
         graph.write_png('graph.png')
-    
+   
+
+    def make_label(self, atom):
+	rel = atom.getRel()
+	vrs = atom.getVars()
+	inds = atom.getInds()
+	l = len(rel.getData())
+	label = rel.getData()[5:(l-6)] + "(";
+	for var in vrs:
+		l = len(var)
+		label = label + var[5:(l-6)] + ","
+	
+	for ind in inds:
+		l = len(ind)
+		label = label + ind[5:(l-6)] + ","
+
+	l = len(label)
+	label = label[0:(l-1)] + ")"
+	return label
+		 
     
     def parse(self):
         self.m_dom = parseString(self.m_data)
@@ -317,7 +359,7 @@ def upload_form():
 	string += '	<form action="/ruleml2" method="post" enctype="multipart/form-data">'
 	string += 'Write ruleML rules here:'
 	string += '		<input type="submit" name="submit" value="Submit"/>'
-	string += '		<textarea name="thetext" rows="20" cols="80"/>'
+	string += '		<textarea name="thetext" rows="20" cols="80">Place your RULE-ML code here</textarea>'
 	string += '	</form>'
 	string += '</body>'
 	string += '</html>'
@@ -353,4 +395,4 @@ def do_upload2():
 
 
 
-run(host='localhost', port=8080)
+run(host='localhost', port=667)
