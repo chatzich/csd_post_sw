@@ -267,9 +267,9 @@ class Rule_Library:
 		    lab = ""
 		    lab = self.make_label(ath)
 		    if(rule.numHeadAtoms() > 1):
-			ed = pydot.Edge(node_a , node_b, arrowhead='open', label = lab)
-		    else:
 			ed = pydot.Edge(node_a , node_b, arrowhead='halfopen', label = lab)
+		    else:
+			ed = pydot.Edge(node_a , node_b, arrowhead='open', label = lab)
 		    graph.add_edge(ed)
 		    
                     #print "I found an edge!!!"
@@ -395,4 +395,4 @@ def do_upload2():
 
 
 
-run(host='localhost', port=667)
+run(host='localhost', port=8888)
