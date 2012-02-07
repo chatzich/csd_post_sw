@@ -366,7 +366,7 @@ def upload_form():
 	return string 
 
 @route('/ruleml', method='POST')
-def do_upload():
+def do_upload_file():
 	submit = request.forms.submit
 	data = request.files.data
 
@@ -380,7 +380,7 @@ def do_upload():
 	return static_file('graph.png', root='.')
 
 @route('/ruleml2', method='POST')
-def do_upload2():
+def do_upload_text():
 	submit = request.forms.submit
 	data = request.forms.thetext
 
