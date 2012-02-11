@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-model href="http://www.ruleml.org/1.0/relaxng/datalog_relaxed.rnc"?>
 
-<RuleML xmlns="http://ruleml.org/spec"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <Assert>
+<RuleML xmlns="http://ruleml.org/spec" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
 <!--Rule 0-->
 
@@ -23,8 +21,6 @@
       </then>
     </Implies>
 
-
-
 <!--Rule 1-->
 
     <Implies>
@@ -43,50 +39,4 @@
         </Atom>
       </then>
     </Implies>
-
-
-
-
-
-
-
-
-    <Atom>
-      <op>
-        <Rel>luxury</Rel>
-      </op>
-      <Ind>Porsche</Ind>
-    </Atom>
-
-
-    <Atom>
-      <op>
-        <Rel>regular</Rel>
-      </op>
-      <Ind>Honda</Ind>
-    </Atom>
-
-    <Atom>
-      <op>
-        <Rel>spending</Rel>
-      </op>
-      <Ind>Peter Miller</Ind>
-      <Ind>min 5000 euro</Ind>
-      <Ind>previous year</Ind>
-    </Atom>
-
-  </Assert>
-
-  <Query>
-    <Atom>
-      <op>
-        <Rel>discount</Rel>
-      </op>
-      <Var>customer</Var>
-      <Var>product</Var>
-      <Var>amount</Var>
-    </Atom>
-
-  </Query>
-
 </RuleML>
