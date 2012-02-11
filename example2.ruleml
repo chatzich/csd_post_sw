@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.ruleml.org/1.0/relaxng/datalog_relaxed.rnc"?>
+
+<RuleML xmlns="http://ruleml.org/spec" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+<!--Rule 0-->
+
+    <Implies>
+      <if>
+        <Atom>
+	  <Var>player</Var>
+	  <Rel>booked</Rel>
+          <Ind>red card</Ind>
+        </Atom>
+      </if>
+      <then>
+        <Atom>
+          <Var>player</Var>
+	  <Rel>off play</Rel>
+        </Atom>
+      </then>
+    </Implies>
+
+<!--Rule 1-->
+    <Implies>
+      <if>
+       <Atom>
+	  <Var>player</Var>
+	  <Rel>booked</Rel>
+          <Ind>second yellow card</Ind>
+        </Atom>
+      </if>
+      <then>
+        <Atom>
+	  <Var>player</Var>
+	  <Rel>booked</Rel>
+          <Ind>red card</Ind>
+        </Atom>
+      </then>
+    </Implies>
+
+<!--Rule 2-->
+    <Implies>
+      <if>
+       <Atom>
+	  <Var>player</Var>
+	  <Rel>fault</Rel>
+          <Ind>hard</Ind>
+        </Atom>
+      </if>
+      <then>
+        <Atom>
+	  <Var>player</Var>
+	  <Rel>booked</Rel>
+          <Ind>yellow card</Ind>
+        </Atom>
+      </then>
+    </Implies>
+
+<!--Rule 3-->
+    <Implies>
+      <if>
+       <Atom>
+	  <Var>player</Var>
+	  <Rel>fault</Rel>
+          <Ind>cruel</Ind>
+        </Atom>
+      </if>
+      <then>
+        <Atom>
+	  <Var>player</Var>
+	  <Rel>booked</Rel>
+          <Ind>red card</Ind>
+        </Atom>
+      </then>
+    </Implies>
+  
+  <!--Rule 4-->
+  <Implies>
+    <if>
+      <Atom>
+        <Var>player</Var>
+        <Rel>fault</Rel>
+        <Ind>hard</Ind>
+      </Atom>
+      <Atom>
+        <Var>player</Var>
+        <Rel>booked</Rel>
+        <Ind>yellow card</Ind>
+      </Atom>
+    </if>
+    <then>
+      <Atom>
+        <Var>player</Var>
+        <Rel>booked</Rel>
+        <Ind>second yellow card</Ind>
+      </Atom>
+    </then>
+  </Implies>
+  
+  <!--Rule 5-->
+  <Implies>
+    <if>
+      <Atom>
+        <Var>player</Var>
+        <Rel>do</Rel>
+        <Ind>theater</Ind>
+      </Atom>
+    </if>
+    <then>
+      <Atom>
+        <Var>player</Var>
+        <Rel>booked</Rel>
+        <Ind>yellow card</Ind>
+      </Atom>
+    </then>
+  </Implies>
+
+</RuleML>
